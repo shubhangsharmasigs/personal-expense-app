@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense</title>
+</head>
+<body>
+    <h1 id="heading">0</h1>
+    <input id="input-amt" type="text">
+    <input id="input-desc" type="text">
+    <button id="btn-add">+</button>
+    <script>
+        // get the heading element
+        const headingEl=document.querySelector("#heading");
+
+        // get ref to inputAmount element
+        const inputElement=document.querySelector("#input-amt");
+
+        // get the ref to desc element
+        const inputDesc = document.querySelector("#input-desc");
+
+        // init value of expense at 0
+        let totalExpense = 0;
+        
+        // setting the heading element to totalExpense
+        headingEl.textContent=totalExpense;
+        
+        // allExpenses at one place
+        const allExpense=[];
+       
+        // onButton click add inputAmount to totalExpense
+        function addExpenseToTotal(){
+
+            // an object
+            const expenseItem = {};
+
+            // read value from inputAmount
+            const textAmount = inputElement.value;
+
+            // read the value from inputDesc
+            const textDesc = inputDesc.value;
+
+            
+            // convert it to a number since the input type is in text
+            const expense = parseInt(textAmount, 10);
+
+            // put it in the object
+            expenseItem.desc = textDesc;
+            expenseItem.amount = expense;
+
+            // push expense object to the allExpense array
+            allExpense.push(expenseItem);
+
+            console.clear();
+            console.table(allExpense);
+
+            // add that value to total expense
+            totalExpense+=expense;
+
+            // setting the heading element to totalExpense
+             headingEl.textContent=totalExpense;
+
+        }
+        // get the button element
+        const element = document.querySelector("#btn-add");
+        // listen to click event
+        element.addEventListener("click",addExpenseToTotal,false);
+
+    </script>
+</body>
+</html>
