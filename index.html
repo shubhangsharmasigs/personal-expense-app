@@ -69,17 +69,23 @@
             headingEl.textContent=someText;
 
             //  show the table here
-            const data1= allExpense[0];
-            const data2 = allExpense[1];
+            // const data1= allExpense[0];
+            // const data2 = allExpense[1];
 
-            const data1Text = `${data1.amount} :: ${data2.desc}`;
-            const data2Text = `${data2.amount} :: ${data2.desc}`;
+            // const data1Text = `${data1.amount} :: ${data2.desc}`;
+            // const data2Text = `${data2.amount} :: ${data2.desc}`;
 
-            const tableText = `
-                <div>${data1Text}</div>
-                <div>${data2Text}</div>
-            `
-            expenseTableEl.innerHTML = tableText;
+            // const tableText = `
+            //     <div>${data1Text}</div>
+            //     <div>${data2Text}</div>
+            // `
+
+            const allExpenseHTML = allExpense.map(expense => {
+                return `<div>${expense.amount} :: ${expense.desc}</div>`
+            });
+
+            const joinedAllExpenseHTML = allExpenseHTML.join("");
+            expenseTableEl.innerHTML =joinedAllExpenseHTML;
 
 
         }
