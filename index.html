@@ -11,6 +11,12 @@
 			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
 			crossorigin="anonymous"
 		/>
+    <script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+		></script>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-dark">
@@ -50,6 +56,10 @@
                         <button class="btn btn-outline-primary" type="button" id="btn-add">Add</button>
                     </div>
                 </div>
+            </div>
+            <div>
+                <ul class="list-group" id="expenseTable"></ul>
+                
             </div>
             <!-- <input id="input-amt" type="text">
             <input id="input-desc" type="text">
@@ -129,7 +139,24 @@
             // `
 
             const allExpenseHTML = allExpense.map(expense => {
-                return `<div>${expense.amount} :: ${expense.desc}</div>`
+                return `
+                <li class="list-group-item d-flex justify-content-between">
+							<div class="d-flex flex-column">
+								${expense.desc}
+								<small class="text-muted">March 11, 2019</small>
+							</div>
+							<div>
+								<span class="px-5">
+									${expense.amount}
+								</span>
+								<button type="button" class="btn btn-outline-danger btn-sm">
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</li>
+                
+                `
+                // return `<div>${expense.amount} :: ${expense.desc}</div>`
             });
 
             const joinedAllExpenseHTML = allExpenseHTML.join("");
