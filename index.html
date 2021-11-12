@@ -112,6 +112,7 @@
             // put it in the object
             expenseItem.desc = textDesc;
             expenseItem.amount = expense;
+            expenseItem.moment = new Date();
 
             // push expense object to the allExpense array
             allExpense.push(expenseItem);
@@ -138,16 +139,34 @@
             //     <div>${data2Text}</div>
             // `
 
-            const allExpenseHTML = allExpense.map(expense => {
-                return `
+            const allExpenseHTML = allExpense.map(expense => createItemList(expense));
+            // return `<div>${expense.amount} :: ${expense.desc}</div>`
+
+            const joinedAllExpenseHTML = allExpenseHTML.join("");
+            expenseTableEl.innerHTML =joinedAllExpenseHTML;
+
+
+        }
+        // controller functions
+        function getDate(momento){
+            return momento.toLocaleDateString('en-US',{
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            })
+        }
+
+        // view layer
+        function createItemList({desc,amount,moment}){
+            return `
                 <li class="list-group-item d-flex justify-content-between">
 							<div class="d-flex flex-column">
-								${expense.desc}
-								<small class="text-muted">March 11, 2019</small>
+								${desc}
+								<small class="text-muted">${getDate(moment)}</small>
 							</div>
 							<div>
 								<span class="px-5">
-									${expense.amount}
+									${amount}
 								</span>
 								<button type="button" class="btn btn-outline-danger btn-sm">
 									<i class="fas fa-trash-alt"></i>
@@ -155,13 +174,7 @@
 							</div>
 						</li>
                 
-                `
-                // return `<div>${expense.amount} :: ${expense.desc}</div>`
-            });
-
-            const joinedAllExpenseHTML = allExpenseHTML.join("");
-            expenseTableEl.innerHTML =joinedAllExpenseHTML;
-
+                `;
 
         }
         // get the button element
