@@ -21,11 +21,12 @@
 <body>
     <nav class="navbar navbar-dark bg-dark">
         <span class="navbar-brand mb-0 h1">Xpense Tracker</span>
+        <span class="navbar-brand mb-0 h1" id="heading"></span>
     </nav>
     <div class="container-fluid bg-light" style="min-height: 100vh">
         <div class="container">
 
-            <h1 id="heading">0</h1>
+            <!-- <h1 id="heading">0</h1> -->
             <div class="jumbotron mt-4">
                 <div class="input-group mb-3">
                     <input
@@ -139,15 +140,18 @@
             //     <div>${data2Text}</div>
             // `
 
-            const allExpenseHTML = allExpense.map(expense => createItemList(expense));
-            // return `<div>${expense.amount} :: ${expense.desc}</div>`
+            // const allExpenseHTML = allExpense.map(expense => createItemList(expense));
+            // // return `<div>${expense.amount} :: ${expense.desc}</div>`
 
-            const joinedAllExpenseHTML = allExpenseHTML.join("");
-            expenseTableEl.innerHTML =joinedAllExpenseHTML;
+            // const joinedAllExpenseHTML = allExpenseHTML.join("");
+            // expenseTableEl.innerHTML =joinedAllExpenseHTML;
+            renderList(allExpense);
 
 
         }
         // controller functions
+
+        // get date
         function getDate(momento){
             return momento.toLocaleDateString('en-US',{
                 year: 'numeric',
@@ -156,7 +160,25 @@
             })
         }
 
+        // delete items
+        function deleteItem(dateValue){
+            const newArray = [];
+            for(let i=0 ; i < allExpense.length ; i++){
+                if(allExpense[i].moment.valueOf() !== dateValue){
+                    newArray.push(allExpense[i]);
+                }
+            }
+            renderList(newArray);
+        }
+
+
         // view layer
+        function renderList(arrOfList){
+            const allExpenseHTML = arrOfList.map(expense => createItemList(expense));
+            const joinedAllExpenseHTML = allExpenseHTML.join("");
+            expenseTableEl.innerHTML =joinedAllExpenseHTML;
+        }
+
         function createItemList({desc,amount,moment}){
             return `
                 <li class="list-group-item d-flex justify-content-between">
@@ -168,7 +190,11 @@
 								<span class="px-5">
 									${amount}
 								</span>
-								<button type="button" class="btn btn-outline-danger btn-sm">
+								<button 
+                                    type="button" 
+                                    class="btn btn-outline-danger btn-sm"
+                                    onclick = "deleteItem(${moment.valueOf()})"
+                                    >
 									<i class="fas fa-trash-alt"></i>
 								</button>
 							</div>
